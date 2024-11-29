@@ -11,6 +11,3 @@ def get_installed_packages():
     
     # Create a dictionary of package names and versions
     return {package['name']: package['version'] for package in packages}
-
-# Get the dictionary of installed packages
-installed_packages = get_installed_packages()

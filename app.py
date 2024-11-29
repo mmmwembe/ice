@@ -1,16 +1,15 @@
-
-from flask import Flask, render_template, request, send_file, jsonify, session, redirect, url_for , flash, send_from_directory
+from flask import Flask, render_template, request, send_file, jsonify, session, redirect, url_for, flash, send_from_directory
 import os
 from datetime import datetime
 from modules.installed_packages import get_installed_packages
 
 app = Flask(__name__)
 app.secret_key = b'\xcc^\x91\xea\x17-\xd0W\x03\xa7\xf8J0\xac8\xc5'
-app.config['SECURITY_PASSWORD_SALT']='thisistheSALTforcreatingtheCONFIRMATIONtoken'
+app.config['SECURITY_PASSWORD_SALT'] = 'thisistheSALTforcreatingtheCONFIRMATIONtoken'
 
 
 @app.route('/')
-def modules():
+def home():
     # Get the installed packages
     installed_packages = get_installed_packages()
     
@@ -25,6 +24,7 @@ def modules():
     
     # Render the packages in the modules.html template
     return render_template('modules.html', packages=installed_packages)
+
 
 @app.route('/download_installed_pkgs')
 def download_installed_pkgs():
@@ -46,3 +46,9 @@ def download_installed_pkgs():
     
     # Return the file for download
     return send_file(file_path, as_attachment=True)
+
+
+if __name__ == "__main__":
+    # Use PORT from the environment, default to 8080 for local development
+    port = int(os.environ.get("PORT", 8080))
+    app.run(host="0.0.0.0", port=port, debug=True)
