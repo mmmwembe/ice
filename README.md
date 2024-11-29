@@ -29,3 +29,8 @@ docker run --env-file .env -p 8080:8080 app
 
 # Cleanup unused containers
 docker system prune
+
+# Run code locally
+python app.py
+
+
